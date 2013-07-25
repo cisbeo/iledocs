@@ -2,6 +2,9 @@ h1. Iledocs
 
 This application was generated with the "rails_apps_composer":https://github.com/RailsApps/rails_apps_composer gem provided by the "RailsApps Project":http://railsapps.github.io/.
 
+lancer elastic search : 
+elasticsearch -f -D es.config=/usr/local/Cellar/elasticsearch/0.90.0/config/elasticsearch.yml
+
 h2. Diagnostics
 
 This application was built with recipes that are known to work together.

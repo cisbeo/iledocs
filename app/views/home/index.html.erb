@@ -1,2 +1,72 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+ <div class="row">
+   <div class="span12">
+        <section id="search_container">
+      <%= form_tag documents_path, :html => { :class => 'form-horizontal' }, method: :get do %>
+        <div class="doc_search_wrapper">
+          <span>
+            <%= text_field_tag :query, params[:query],  :class => "span12 search rounded", style: 'height:50px;',  :placeholder => "search"  %><%= submit_tag t("Search"), :class => "search_submit", name: nil, :style => 'visibility: hidden' %></span>
+        </div>  
+      <% end %>
+    </section>
+  </div>
+</div>
+ <div class="row">
+  <div class="span8">
+    <%- model_class = Document -%>
+<!--    <div class="page-header">
+      <h1><%#=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+    </div>
+-->
+
+
+
+    <div class="row">
+      <div class="span8">
+        <h1> <%= t("Last NOLS documented objects") %> </h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span8">
+        <% @documents.each do |document| %>
+          <div class="row">
+            <div class="span8">
+          <div class= "news push">
+            <div class="body">
+              <span class="mega-octicon octicon-git-commit"></span>
+              <div class="time"> <%= t("2 days ago") %></div>
+              <div class="title">
+                <%= link_to "somebody", document_path(document) %> a mis en UAT
+                <%= link_to document.name, document_path(document)   %>
+              </div>
+              <div class="details">
+                <div>
+                  <ul>
+                    <% if document.briefs.nil? || document.briefs.empty? || document.briefs.blank?%>
+                       <li class="alert"><%= t("**no information**") %></li>
+                    <% else %>
+                      <% document.briefs.each do |brief| %>
+                        <li> <%= markdown brief.value %></li>
+                      <%end%>
+                    <%end%>
+                  </ul>
+                </div>
+                <div class="commits pusher-is-only-committer">
+                  <ul>
+                    <% document.revs.each do |rev| %>
+                      <li> markdown rev.value</li>
+                    <%end%>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+            </div>
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <div class="span4"> </div>
+
+
+</div>

@@ -1,3 +1,49 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.news {
+padding: 0 0 1em 45px;
+overflow: hidden;
+position: relative;
+border-top: 1px solid #f1f1f1;
+}
+.news .body {
+border-bottom: none;
+overflow: hidden;
+padding: 1em 0 0 0;
+font-size: 14px;
+}
+.mega-octicon {
+font: normal normal 32px "github-octicons";
+line-height: 1;
+display: inline-block;
+text-decoration: none;
+-webkit-font-smoothing: antialiased;
+}
+.news  .mega-octicon::before {
+color: inherit;
+}
+.news  .time {
+font-size: 12px;
+color: #bbb;
+}
+
+.news  .title {
+padding: 0;
+font-weight: bold;
+}
+
+.news  .title {
+font-weight: bold;
+}
+
+.news  .commits {
+padding-left: 40px;
+}
+
+li.alert{
+    margin-top: 10px;
+	list-style: none;
+	width: 30%;
+}

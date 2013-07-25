@@ -11,6 +11,42 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20130616203804) do
+
+  create_table "attributes", :force => true do |t|
+    t.string   "name"
+    t.text     "value"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "document_id"
+  end
+
+  create_table "comments", :force => true do |t|
+    t.text     "text"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "comment_id"
+    t.integer  "document_id"
+  end
+
+  create_table "documents", :force => true do |t|
+    t.string   "name"
+    t.string   "doctype"
+    t.string   "status"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "parent_id"
+    t.string   "library"
+    t.string   "srcfile"
+    t.string   "member"
+  end
+
+  create_table "tags", :force => true do |t|
+    t.string   "name"
+    t.text     "value"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "document_id"
+  end
 
 end

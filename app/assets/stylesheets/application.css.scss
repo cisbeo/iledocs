@@ -13,7 +13,7 @@
 */
 
 .content {
-  background-color: #eee;
+  background-color: #fff;
   padding: 20px;
   margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
   -webkit-border-radius: 0 0 6px 6px;
@@ -22,4 +22,38 @@
   -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
   box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+
+#search_container #blog_search .doc_search_wrapper {
+background: #fdfdfd;
+height: 65px;
+position: relative;
+}
+
+form input[type="text"], form input[type="password"], form input[type="email"], form textarea {
+border: 2px solid #e5eae4;
+font-size: 24px;
+color: #74b73f;
+width: 90%;
+outline: none;
+padding: 15px 10px;
+}
+
+#search_container .doc_search_wrapper .search_term {
+background: transparent;
+color: #2e2e2e;
+border: none;
+float: left;
+width: 100%;
+height: 100%;
+text-indent: 1em;
+}
+#search_container #blog_search .blog_search_wrapper .search_submit {
+display: inline-block;
+float: right;
+background-position: 0 -701px;
+width: 33px;
+height: 33px;
+margin: 1em;
+border: none;
 }

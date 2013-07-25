@@ -1,0 +1,121 @@
+<div class="row">
+  <div class="span12">
+
+    <%- model_class = Document -%>
+    <div class="page-header">
+      <h1><%=t '.title', :default => @document.name %>  <% if @document.export? %>
+        <%= link_to t('Exported'), document_path(@document), :class => 'btn btn-mini btn-warning' %>
+      <% end %> </h1>     
+
+   </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+
+    <dl class="box">
+      <dt class="r1"><strong><%= t(model_class.human_attribute_name(:name)) %>:</strong></dt>
+      <dd class="r1"><%= @document.name %></dd>
+      <dt class="r2"><strong><%= t(model_class.human_attribute_name(:doctype)) %>:</strong></dt>
+      <dd class="r2"><%= @document.doctype %></dd>
+      <dt class="r1"><strong><%= t("Localization") %>:</strong></dt>
+      <dd class="r1"><%= @document.library %>/<%= @document.srcfile%>/<%=@document.member%></dd>
+
+    </dl>
+  </div>
+</div>
+
+<% if !@document.deprecated?.empty? %>
+<div class="row">
+  <div class="span12">
+    <h1><%= t("Deprecated")  %>       
+      <% @document.deprecated?.each do |tag| %>
+        <%= tag.value %>
+      <%end%></h1>
+  </div>
+</div>
+<%end%>
+<div class="row">
+  <div class="span12">
+      <h2><%=t '.title',  :default => t("Overview") %></h2>
+      <% @document.briefs.each do |tag| %>
+        <p><%= tag.value %></p>
+      <%end%>
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
+      <h2><%=t '.title',  :default => t("Description") %></h2>
+      <% @document.descriptions.each do |tag| %>
+        <p><%= markdown tag.value %></p>
+      <%end%>
+  </div>
+</div>
+
+
+
+<% if @document.doctype == "program" %>
+<div class="row">
+  <div class="span12">
+      <h2><%=t '.title',  :default => t("Copybooks") %></h2>
+      <% @document.copybooks.each do |tag| %>
+        <p><%= tag.value %></p>
+      <%end%>
+  </div>
+</div>
+<%end%>
+
+<% if @document.doctype == "program" %>
+
+<div class="row">
+  <div class="span12">
+    <h2><%=t '.title',  :default => t("Functions and procedures") %></h2>
+    <h2>
+    <ul class="box">
+      <% @document.childs.each do |proc| %>
+        <li><%= link_to proc.name, document_path(proc)  %>: 
+          <% proc.briefs.each do |tag| %>
+            <%=  tag.value   %>
+          <%end%>
+        </li>
+      <%end%>
+    </ul>
+  </div>
+</div>
+<%end%>
+
+<% if @document.doctype == "procedure" %>
+<div class="row">
+  <div class="span12">
+    <h2><%=t '.title',  :default => t("Parameters") %></h2>
+    <ul class="box">
+      <% @document.params.each do |key,value| %>
+        <li style="color='blue';"><%= markdown value[0] %></li><ul>
+        <% value.delete_at(0)%> 
+        <% value.each do |v| %>
+            
+            <li><%= markdown v %></li>
+            
+          <%end%></ul>
+      <%end%>
+    </ul>
+  </div>
+</div>
+<%end%>  
+
+<div class="row">
+  <div class="span12">
+  <%#= link_to t('.back', :default => t("helpers.links.back")),
+              documents_path, :class => 'btn btn-large'  %>
+  <%#= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_document_path(@document), :class => 'btn' %>
+  <%#= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              document_path(@document),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>
+</div>
+</div>
+
