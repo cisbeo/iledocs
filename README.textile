@@ -5,6 +5,10 @@ This application was generated with the "rails_apps_composer":https://github.com
 lancer elastic search : 
 elasticsearch -f -D es.config=/usr/local/Cellar/elasticsearch/0.90.0/config/elasticsearch.yml
 
+ iconv -f windows-1252 -t UTF-8 "ILEDBASE-program-utf81.csv" > ILEDBASE-program-utf-8.csv
+
+rake environment tire:import CLASS=Document FORCE=true
+
 h2. Diagnostics
 
 This application was built with recipes that are known to work together.
