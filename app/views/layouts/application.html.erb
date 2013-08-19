@@ -2,8 +2,8 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Iledocs" %></title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Iledocs" %>">
+    <title><%= content_for?(:title) ? yield(:title) : "Nodocs" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "NODOCS" %>">
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
@@ -22,10 +22,24 @@
         <div class="content">
 
               <%= render 'layouts/messages' %>
-              <%= yield %>
+          <div class="row">
+          <div class="span12">
+            <section id="search_container">
+              <%= form_tag documents_path, :html => { :class => 'form-horizontal' }, method: :get do %>
+                <div class="doc_search_wrapper">
+                  <span>
+                    <%= text_field_tag :query, params[:query],  :class => "span12 search rounded", style: 'height:50px;',  :placeholder => "search"  %><%= submit_tag t("Search"), :class => "search_submit", name: nil, :style => 'visibility: hidden' %>
+                  </span>
+                </div>  
+              <% end %>
+            </section>
+          </div>
+        </div>
 
-          <footer>
-          </footer>
+          <%= yield %>
+
+        <footer>
+        </footer>
         </div>
       </div> <!--! end of .container -->
     </div> <!--! end of #main -->

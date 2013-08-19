@@ -1,66 +1,61 @@
- <div class="row">
-  <div class="span12">
-    <%- model_class = Document -%>
-<!--    <div class="page-header">
-      <h1><%#=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
-    </div>
--->
-
-  <section id="search_container">
-    <%= form_tag documents_path, :html => { :class => 'form-horizontal' }, method: :get do %>
-    <div class="doc_search_wrapper">
-      <span>
-      <%= text_field_tag :query, params[:query],  :class => "span12 search rounded", style: 'height:50px;',  :placeholder => "search"  %><%= submit_tag t("Search"), :class => "search_submit", name: nil, :style => 'visibility: hidden' %></span>
-    </div>  
-    <% end %>
-  </section>
-
-
-  </div>
-</div>
-
-  
-
-
 <div class="row">
   <div class="span12">
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= t model_class.human_attribute_name(:id) %></th>
-      <th><%= t model_class.human_attribute_name(:name) %></th>
-      <th><%= t model_class.human_attribute_name(:doctype) %></th>
-      <th><%= t("procedure type")%></th>
-      <th><%= t model_class.human_attribute_name(:status) %></th>
-      <th><%= t model_class.human_attribute_name(:created_at) %></th>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+      <!--
+      <th><%#= t model_class.human_attribute_name(:id) %></th>
+    -->
+          <th><%= t Document.human_attribute_name(:name) %></th>
+          <th><%= t Document.human_attribute_name(:doctype) %></th>
+          <th><%= t Document.human_attribute_name("brief")%></th>
+          <th><%= t("procedure type")%></th>
+          <th><%= t Document.human_attribute_name(:status) %></th>
+      <!--
+      <th><%#= t model_class.human_attribute_name(:created_at) %></th>
+    -->
      <!--
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     -->
-    </tr>
-  </thead>
-  <tbody>
-    <% @documents.each do |document| %>
-      <tr>
-        <td><%= link_to document.id, document_path(document) %></td>
-        <td><%= link_to document.name, document_path(document) %></td>
-        <td><%=  link_to document.doctype, document_path(document) %></td>
-        <td><% if document.export? %>
-          <%=  link_to t("Export"), document_path(document) %>
-          <%else%>
-          <%= link_to t('Private'), document_path(document)%>
-          <%end%>
-        </td>
-
-        <td><% if !document.deprecated?.empty? %>
-              <%= link_to t('Deprecated'), document_path(document), :class => 'btn btn-mini btn-danger'  %>
-            <%else%>
-              <%= link_to t('Active'), document_path(document), :class => 'btn btn-mini btn-active' %>
-            <%end%>
-
+        </tr>
+      </thead>
+      <tbody>
+        <% @documents.each do |document| %>
+          <tr>
+        <!--
+        <td><%#= link_to document.id, document_path(document) %></td>
+      -->
+            <td><%= link_to document.name, document_path(document) %></td>
+            <td><%=  link_to document.doctype, document_path(document) %></td>
+            <td>
+              <% document.briefs.each do |brief| %>
+                <%=  brief.value   %>
+              <%end%>
+            </td> 
+            <td>
+              <% if document.doctype == 'PROCEDURE'%>
+                <% if document.export? %>
+                  <%=  link_to t("Export"), document_path(document) %>
+                <%else%>
+                  <%= link_to t('Private'), document_path(document)%>
+                <%end%>
+              <%else%>
+                <%= t('not_applicable')%>
+              <%end%>
             </td>
-        <td><%=t document.created_at %></td>
-        <td>
+            <td>
+              <% if document.deprecated? %>
+                <%= link_to t('Deprecated'), document_path(document), :class => 'btn btn-mini btn-danger'  %>
+              <%else%>
+                <%= link_to t('Active'), document_path(document), :class => 'btn btn-mini btn-active' %>
+              <%end%>
+            </td>
+        <!-- 
+        <td><%#=t document.created_at %></td>
+      -->
+            <td>
+            </td>
+            <td>
           <%#= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_document_path(document), :class => 'btn btn-mini' %>
           <%#= link_to t('.destroy', :default => t("helpers.links.destroy")),
@@ -68,11 +63,17 @@
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
+<div class="row">
+  <div class="span12">
+    <%= will_paginate @documents %>
+  </div>  
 </div>
+
 

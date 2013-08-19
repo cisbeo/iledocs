@@ -13,9 +13,18 @@ fr:
   Created at: "Créé le"
   Localization: "Localisation"
   Functions and procedures: "Fonctions et procédures"
-  Last NOLS documented objects: "Les derniers objets NOLS documentés"
+  Last_NOLS_documented_objects: "Les derniers objets NOLS documentés"
   Deprecated: "Procédure dépréciée"
   Exported: "Export"
+  not_available_yet: "Pas encore disponible"
+  no_information: "Pas d'information"
+  Author: "Auteur"
+  files_used: "fichiers utilisés"
+  there_is: "il y a"
+  program: "programme"
+  file: "fichier"
+  procedure: "procedure"
+  how_to_document_sources: "Comment documenter les sources"
 
 # French translations for Ruby on Rails
 # by Christian Lescuyer (christian@flyingcoders.com)
@@ -249,3 +258,9 @@ fr:
   activerecord:
     errors:
       <<: *errors
+    models:
+      document: "document"
+      tag: "tag"
+    attributes:
+      document:
+        brief: "résumé"

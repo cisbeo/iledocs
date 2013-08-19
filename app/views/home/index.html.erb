@@ -1,30 +1,16 @@
- <div class="row">
-   <div class="span12">
-        <section id="search_container">
-      <%= form_tag documents_path, :html => { :class => 'form-horizontal' }, method: :get do %>
-        <div class="doc_search_wrapper">
-          <span>
-            <%= text_field_tag :query, params[:query],  :class => "span12 search rounded", style: 'height:50px;',  :placeholder => "search"  %><%= submit_tag t("Search"), :class => "search_submit", name: nil, :style => 'visibility: hidden' %></span>
-        </div>  
-      <% end %>
-    </section>
-  </div>
-</div>
- <div class="row">
+
+<div class="row">
+<!-- main section -->
   <div class="span8">
-    <%- model_class = Document -%>
-<!--    <div class="page-header">
-      <h1><%#=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
-    </div>
--->
-
-
-
     <div class="row">
       <div class="span8">
-        <h1> <%= t("Last NOLS documented objects") %> </h1>
+        <h1> <%= t("HowTo_search") %> </h1>
+        <%= markdown @howtosearch %>
       </div>
     </div>
+
+
+<!--
     <div class="row">
       <div class="span8">
         <% @documents.each do |document| %>
@@ -66,7 +52,41 @@
       </div>
     </div>
   </div>
-  <div class="span4"> </div>
+-->
+ 
+    <div class="row">
+      <div class="span8">
+              <%= markdown @howtodoc %>
 
+      </div>
+    </div>
+  </div> 
+<!-- end main section -->
+
+
+<!-- sidebar section -->
+  <div class="span4">
+    <div class="row">
+      <div class="span8">
+        <h4> <%= t("NOLS Statistiques") %> </h4>
+        <p><%= t('there_is') %> <%= @programs_count %> <%= t('program') %></p>
+        <p><%= t('there_is') %> <%= @procedures_count %> <%= t('procedure') %></p>
+        <p><%= t('there_is') %> <%= @files_count %> <%= t('file') %></p>
+      </div>
+    </div>
+   <div class="row">
+     <div class="span8">
+        <h4> <%= t("Last_NOLS_documented_objects") %> </h4>
+     </div>
+   </div>
+   <div class="row">
+     <div class="span8"> <p><%= t('not_available_yet') %> ;-)</p></div>
+   </div>
+  </div> 
+
+<!-- end sidebar section -->
 
 </div>
+
+
+

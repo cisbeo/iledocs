@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130616203804) do
+ActiveRecord::Schema.define(:version => 20130818231016) do
 
   create_table "attributes", :force => true do |t|
     t.string   "name"
@@ -35,10 +35,20 @@ ActiveRecord::Schema.define(:version => 20130616203804) do
     t.string   "status"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "parent_id"
+    t.integer  "prog_id"
     t.string   "library"
     t.string   "srcfile"
     t.string   "member"
+    t.string   "ancestry"
+  end
+
+  add_index "documents", ["ancestry"], :name => "index_documents_on_ancestry"
+
+  create_table "links", :force => true do |t|
+    t.integer  "from_id"
+    t.integer  "to_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "tags", :force => true do |t|

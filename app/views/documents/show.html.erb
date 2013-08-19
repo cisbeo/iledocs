@@ -3,9 +3,15 @@
 
     <%- model_class = Document -%>
     <div class="page-header">
-      <h1><%=t '.title', :default => @document.name %>  <% if @document.export? %>
-        <%= link_to t('Exported'), document_path(@document), :class => 'btn btn-mini btn-warning' %>
-      <% end %> </h1>     
+      <h1><%=t '.title', :default => @document.name %>  
+        <% if @document.doctype != 'FILE'%>
+          <% if @document.export? %>
+            <%= link_to t('Exported'), document_path(@document), :class => 'btn btn-mini btn-warning' %>
+          <%else%>
+            <%= link_to t('Private'), document_path(@document), :class => 'btn btn-mini btn-warning' %>
+          <% end %>
+        <%end%>
+      </h1>     
 
    </div>
   </div>
@@ -15,30 +21,55 @@
   <div class="span12">
 
     <dl class="box">
-      <dt class="r1"><strong><%= t(model_class.human_attribute_name(:name)) %>:</strong></dt>
+      <dt class="r1"><strong><%= t(Document.human_attribute_name(:name)) %>:</strong></dt>
       <dd class="r1"><%= @document.name %></dd>
-      <dt class="r2"><strong><%= t(model_class.human_attribute_name(:doctype)) %>:</strong></dt>
+      <dt class="r2"><strong><%= t(Document.human_attribute_name(:doctype)) %>:</strong></dt>
       <dd class="r2"><%= @document.doctype %></dd>
-      <dt class="r1"><strong><%= t("Localization") %>:</strong></dt>
-      <dd class="r1"><%= @document.library %>/<%= @document.srcfile%>/<%=@document.member%></dd>
+      <dt class="r1"><strong><%= t(Document.human_attribute_name(:author)) %>:</strong></dt>
+      <dd class="r1"><%=   @document.author %> le <%=  @document.creation_date%></dd>
+      <dt class="r2 last"><strong><%= t("Localization") %>:</strong></dt>
+      <dd class="r2 last"><%= @document.library %>/<%= @document.srcfile%>/<%=@document.member%></dd>
 
     </dl>
   </div>
 </div>
 
-<% if !@document.deprecated?.empty? %>
+<% if !@document.deprecated? %>
 <div class="row">
   <div class="span12">
-    <h1><%= t("Deprecated")  %>       
-      <% @document.deprecated?.each do |tag| %>
-        <%= tag.value %>
-      <%end%></h1>
+    <h1><%= t("Deprecated")  %></h1>
   </div>
 </div>
 <%end%>
+
 <div class="row">
   <div class="span12">
-      <h2><%=t '.title',  :default => t("Overview") %></h2>
+    <h2><%=t '.title',  :default => t("Warnings") %></h2>
+    <ul class="box">
+      <% @document.warnings.each do |tag| %>
+        <li>
+            <%=  nolsmarkdown tag.value   %>
+        </li>
+      <%end%>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
+    <h2><%=t '.title',  :default => t("Todo") %></h2>
+    <ul class="box">
+      <% @document.todos.each do |tag| %>
+        <li>
+            <%=  nolsmarkdown tag.value   %>
+        </li>
+      <%end%>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+      <h2><%=t '.title',  :default => t(Document.human_attribute_name(:brief)) %></h2>
       <% @document.briefs.each do |tag| %>
         <p><%= tag.value %></p>
       <%end%>
@@ -48,14 +79,27 @@
   <div class="span12">
       <h2><%=t '.title',  :default => t("Description") %></h2>
       <% @document.descriptions.each do |tag| %>
-        <p><%= markdown tag.value %></p>
+        <p><%= nolsmarkdown tag.value %></p>
       <%end%>
   </div>
 </div>
 
 
+<% if @document.doctype == "PROGRAM" %>
 
-<% if @document.doctype == "program" %>
+<div class="row">
+  <div class="span12">
+    <h2><%=t '.title',  :default => t("files_used") %></h2>
+    <ul class="box">
+      <% @document.files_used.each do |file| %>
+        <li><%= link_to file.name, document_path(file)  %>: 
+
+        </li>
+      <%end%>
+    </ul>
+  </div>
+</div>
+
 <div class="row">
   <div class="span12">
       <h2><%=t '.title',  :default => t("Copybooks") %></h2>
@@ -64,16 +108,12 @@
       <%end%>
   </div>
 </div>
-<%end%>
-
-<% if @document.doctype == "program" %>
 
 <div class="row">
   <div class="span12">
     <h2><%=t '.title',  :default => t("Functions and procedures") %></h2>
-    <h2>
     <ul class="box">
-      <% @document.childs.each do |proc| %>
+      <% @document.procs.each do |proc| %>
         <li><%= link_to proc.name, document_path(proc)  %>: 
           <% proc.briefs.each do |tag| %>
             <%=  tag.value   %>
@@ -85,24 +125,68 @@
 </div>
 <%end%>
 
-<% if @document.doctype == "procedure" %>
+
+<% if @document.doctype == "PROGRAM" or @document.doctype == "PROCEDURE" %>
 <div class="row">
   <div class="span12">
     <h2><%=t '.title',  :default => t("Parameters") %></h2>
     <ul class="box">
       <% @document.params.each do |key,value| %>
-        <li style="color='blue';"><%= markdown value[0] %></li><ul>
-        <% value.delete_at(0)%> 
+        <li style="color='blue';"><%= nolsmarkdown value[0] %></li><ul>
+        <% value.delete_at(0)%>
         <% value.each do |v| %>
             
-            <li><%= markdown v %></li>
+            <li><%= nolsmarkdown v %></li>
             
           <%end%></ul>
       <%end%>
     </ul>
   </div>
 </div>
-<%end%>  
+
+
+<div class="row">
+  <div class="span12">
+    <h2><%=t '.title',  :default => t("Extpgm") %></h2>
+    <ul class="box">
+      <% @document.extpgms.each do |tag| %>
+        <li>
+            <%=  nolsmarkdown tag.value   %>
+        </li>
+      <%end%>
+    </ul>
+  </div>
+</div>
+<%end%>
+
+<% if @document.doctype == "FILE" %>
+<div class="row">
+  <div class="span12">
+    <h2><%=t '.title',  :default => t("program_using") %></h2>
+    <ul class="box">
+      <% @document.ancestors.each do |program| %>
+        <li><%= link_to program.name, document_path(program)  %>: 
+
+        </li>
+      <%end%>
+    </ul>
+  </div>
+</div>
+<%end%>
+
+<div class="row">
+  <div class="span12">
+    <h2><%=t '.title',  :default => t("Revisions") %></h2>
+    <ul class="box">
+      <% @document.revs.each do |tag| %>
+        <li>
+            <%=  nolsmarkdown tag.value   %>
+        </li>
+      <%end%>
+    </ul>
+  </div>
+</div>
+
 
 <div class="row">
   <div class="span12">
