@@ -14,8 +14,9 @@ class Document < ActiveRecord::Base
   has_many :from_links, :foreign_key => "to_id" , :class_name => "Link"
   has_many :ancestors , :through => :from_links
 
+  scope :recent , order('created_at DESC').limit(10)
 
- 
+
 include Tire::Model::Search
 include Tire::Model::Callbacks
 
@@ -53,6 +54,10 @@ end
 
   def parms
     self.tags.where("name like ?", 'parm%').order(:name)
+  end
+
+  def proc_return
+    self.tags.where("name = ?", 'return%')
   end
 
 def author
@@ -124,6 +129,16 @@ end
 
 def prog_using
   self.ancestors.where("doctype=?","PROGRAM")
+end
+
+def self.programs_count
+  Document.where("doctype=?", "PROGRAM").count
+end
+def self.procedures_count
+  Document.where("doctype=?", "PROCEDURE").count
+end
+def self.files_count
+  Document.where("doctype=?", "FILE").count
 end
 
 end

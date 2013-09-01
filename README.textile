@@ -4,6 +4,8 @@ This application was generated with the "rails_apps_composer":https://github.com
 
 lancer elastic search : 
 elasticsearch -f -D es.config=/usr/local/Cellar/elasticsearch/0.90.0/config/elasticsearch.yml
+rake environment tire:import CLASS=Document FORCE=true
+rake environment tire:import CLASS=Tag FORCE=true
 
 h2. Diagnostics
 

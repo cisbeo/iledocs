@@ -37,5 +37,7 @@ Iledocs::Application.configure do
 
   # ActionMailer Config
   config.action_mailer.default_url_options = { :host => 'example.com' }
+    # Application Logger
+  Rails.logger = Logger.new(STDOUT)
 
 end

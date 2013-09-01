@@ -1,0 +1,9 @@
+<section id="search_container">
+  <%= form_tag documents_path, :html => { :class => 'form-horizontal' }, method: :get do %>
+    <div class="doc_search_wrapper">
+      <span>
+        <%= text_field_tag :query, params[:query],  :class => "span12 search rounded", style: 'height:50px;',  :placeholder => "search"  %><%= submit_tag t("Search"), :class => "search_submit", name: nil, :style => 'visibility: hidden' %>
+      </span>
+    </div>  
+  <% end %>
+</section>

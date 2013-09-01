@@ -1,4 +1,9 @@
 class DocumentsController < ApplicationController
+
+  layout 'application_without_searchbar', :except => 'index'
+
+
+
   # GET /documents
   # GET /documents.json
   def index
@@ -6,10 +11,9 @@ class DocumentsController < ApplicationController
 
   if params[:query].present?
     @documents = Document.search(params)
-  else
-    @documents = Document.all
   end
-   # @documents = Document.all
+  # Todo = limiter le nombre de documents et gérer la pagination pour l'affichage
+   #@documents = Document.all.limit(1000)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -75,6 +79,22 @@ class DocumentsController < ApplicationController
       end
     end
   end
+
+  # GET /documents/test
+  # GET /documents/test.json
+  def test
+    respond_to do |format|
+      format.html # new.html.erb
+    end
+  end
+
+  def parse_result
+    @text = params[:text]
+    respond_to do |format|
+      format.html
+    end
+  end
+
 
   # DELETE /documents/1
   # DELETE /documents/1.json

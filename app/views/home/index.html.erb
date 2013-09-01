@@ -1,19 +1,45 @@
 
 <div class="row">
+  <a name= 'top'>&nbsp;</a>
+<!-- Sommaire -->
+  <div class="span12">
+    <ul class="unstyled">
+    <% @howtos.each do |name, file| %>
+      <li> <%= link_to name, ('#'+ name) %> </li>
+    <%end%>
+  </div>
+</div>
+
+<div class="row">
 <!-- main section -->
   <div class="span8">
-    <div class="row">
-      <div class="span8">
-        <h1> <%= t("HowTo_search") %> </h1>
-        <%= markdown @howtosearch %>
-      </div>
-    </div>
+    <% @howtos.each do |name, file| %>
+    <a name= '<%= name.chomp %>'>&nbsp;</a>
+          <%= markdown file %>
+    <%end%>
+  </div> 
+<!-- end main section -->
+
+
+<!-- sidebar section -->
+  <div class="offset1 span3">
+        <h4> NoDoc <%= t("Statistiques") %> </h4>
+        <p><%= t('there_is') %> <%= @programs_count %> <%= t('program') %></p>
+        <p><%= t('there_is') %> <%= @procedures_count %> <%= t('procedure') %></p>
+        <p><%= t('there_is') %> <%= @files_count %> <%= t('file') %></p>
+
+        <h4> <%= t("Last_NOLS_documented_objects") %> </h4>
+        <p><%= t('not_available_yet') %> ;-)</p></div>
+  </div> 
+<!-- end sidebar section -->
+
+</div>
 
 
 <!--
     <div class="row">
       <div class="span8">
-        <% @documents.each do |document| %>
+        <% @recent_documents.each do |document| %>
           <div class="row">
             <div class="span8">
           <div class= "news push">
@@ -53,40 +79,10 @@
     </div>
   </div>
 -->
- 
-    <div class="row">
-      <div class="span8">
-              <%= markdown @howtodoc %>
-
-      </div>
-    </div>
-  </div> 
-<!-- end main section -->
 
 
-<!-- sidebar section -->
-  <div class="span4">
-    <div class="row">
-      <div class="span8">
-        <h4> <%= t("NOLS Statistiques") %> </h4>
-        <p><%= t('there_is') %> <%= @programs_count %> <%= t('program') %></p>
-        <p><%= t('there_is') %> <%= @procedures_count %> <%= t('procedure') %></p>
-        <p><%= t('there_is') %> <%= @files_count %> <%= t('file') %></p>
-      </div>
-    </div>
-   <div class="row">
-     <div class="span8">
-        <h4> <%= t("Last_NOLS_documented_objects") %> </h4>
-     </div>
-   </div>
-   <div class="row">
-     <div class="span8"> <p><%= t('not_available_yet') %> ;-)</p></div>
-   </div>
-  </div> 
 
-<!-- end sidebar section -->
 
-</div>
 
 
 

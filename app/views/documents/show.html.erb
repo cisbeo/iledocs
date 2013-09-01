@@ -10,6 +10,9 @@
           <%else%>
             <%= link_to t('Private'), document_path(@document), :class => 'btn btn-mini btn-warning' %>
           <% end %>
+          <% if @document.deprecated? %>
+            <%= link_to t('Deprecated'), document_path(@document), :class => 'btn btn-large btn-danger' %>
+          <%end%>
         <%end%>
       </h1>     
 
@@ -34,14 +37,7 @@
   </div>
 </div>
 
-<% if !@document.deprecated? %>
-<div class="row">
-  <div class="span12">
-    <h1><%= t("Deprecated")  %></h1>
-  </div>
-</div>
-<%end%>
-
+<% if !@document.warnings.empty? %>
 <div class="row">
   <div class="span12">
     <h2><%=t '.title',  :default => t("Warnings") %></h2>
@@ -53,7 +49,17 @@
       <%end%>
     </ul>
   </div>
+          <% if @document.deprecated? %>
+          <div class="row">
+            <div class="offset5 span8">
+            <%= link_to t('Deprecated'), document_path(@document), :class => 'btn btn-large btn-danger' %>
+            </div>
+          </div>
+          <%end%>
 </div>
+<%end%>
+
+<% if !@document.todos.empty? %>
 <div class="row">
   <div class="span12">
     <h2><%=t '.title',  :default => t("Todo") %></h2>
@@ -65,7 +71,15 @@
       <%end%>
     </ul>
   </div>
+          <% if @document.deprecated? %>
+          <div class="row">
+            <div class="offset5 span8">
+            <%= link_to t('Deprecated'), document_path(@document), :class => 'btn btn-large btn-danger' %>
+            </div>
+          </div>
+          <%end%>
 </div>
+<%end%>
 
 <div class="row">
   <div class="span12">
@@ -74,7 +88,15 @@
         <p><%= tag.value %></p>
       <%end%>
   </div>
+          <% if @document.deprecated? %>
+          <div class="row">
+            <div class="offset5 span8">
+            <%= link_to t('Deprecated'), document_path(@document), :class => 'btn btn-large btn-danger' %>
+            </div>
+          </div>
+          <%end%>
 </div>
+
 <div class="row">
   <div class="span12">
       <h2><%=t '.title',  :default => t("Description") %></h2>
@@ -82,8 +104,36 @@
         <p><%= nolsmarkdown tag.value %></p>
       <%end%>
   </div>
+          <% if @document.deprecated? %>
+          <div class="row">
+            <div class="offset5 span8">
+            <%= link_to t('Deprecated'), document_path(@document), :class => 'btn btn-large btn-danger' %>
+            </div>
+          </div>
+          <%end%>
 </div>
 
+<% if @document.doctype == 'PROCEDURE' %>
+<div class="row">
+  <div class="span12">
+    <h2><%=t '.title',  :default => t("function_return") %></h2>
+      <% if @document.proc_return.empty? %>
+        <p> <%= t('not_concerned') %> </p>
+      <%else%>
+        <% @document.proc_return.each do |tag| %>
+          <p><%= tag.value %></p>
+        <%end%>
+      <%end%>
+  </div>
+          <% if @document.deprecated? %>
+          <div class="row">
+            <div class="offset5 span8">
+            <%= link_to t('Deprecated'), document_path(@document), :class => 'btn btn-large btn-danger' %>
+            </div>
+          </div>
+          <%end%>
+</div>
+<%end%>
 
 <% if @document.doctype == "PROGRAM" %>
 
@@ -98,6 +148,13 @@
       <%end%>
     </ul>
   </div>
+          <% if @document.deprecated? %>
+          <div class="row">
+            <div class="offset5 span8">
+            <%= link_to t('Deprecated'), document_path(@document), :class => 'btn btn-large btn-danger' %>
+            </div>
+          </div>
+          <%end%>
 </div>
 
 <div class="row">
@@ -107,6 +164,13 @@
         <p><%= tag.value %></p>
       <%end%>
   </div>
+          <% if @document.deprecated? %>
+          <div class="row">
+            <div class="offset5 span8">
+            <%= link_to t('Deprecated'), document_path(@document), :class => 'btn btn-large btn-danger' %>
+            </div>
+          </div>
+          <%end%>
 </div>
 
 <div class="row">
@@ -120,8 +184,14 @@
           <%end%>
         </li>
       <%end%>
-    </ul>
   </div>
+          <% if @document.deprecated? %>
+          <div class="row">
+            <div class="offset5 span8">
+            <%= link_to t('Deprecated'), document_path(@document), :class => 'btn btn-large btn-danger' %>
+            </div>
+          </div>
+          <%end%>
 </div>
 <%end%>
 
@@ -142,9 +212,16 @@
       <%end%>
     </ul>
   </div>
+          <% if @document.deprecated? %>
+          <div class="row">
+            <div class="offset5 span8">
+            <%= link_to t('Deprecated'), document_path(@document), :class => 'btn btn-large btn-danger' %>
+            </div>
+          </div>
+          <%end%>
 </div>
 
-
+<% if !@document.extpgms.empty? %>
 <div class="row">
   <div class="span12">
     <h2><%=t '.title',  :default => t("Extpgm") %></h2>
@@ -156,7 +233,15 @@
       <%end%>
     </ul>
   </div>
+          <% if @document.deprecated? %>
+          <div class="row">
+            <div class="offset5 span8">
+            <%= link_to t('Deprecated'), document_path(@document), :class => 'btn btn-large btn-danger' %>
+            </div>
+          </div>
+          <%end%>
 </div>
+<%end%>
 <%end%>
 
 <% if @document.doctype == "FILE" %>
@@ -171,9 +256,17 @@
       <%end%>
     </ul>
   </div>
+          <% if @document.deprecated? %>
+          <div class="row">
+            <div class="offset5 span8">
+            <%= link_to t('Deprecated'), document_path(@document), :class => 'btn btn-large btn-danger' %>
+            </div>
+          </div>
+          <%end%>
 </div>
 <%end%>
 
+<% if !@document.revs.empty? %>
 <div class="row">
   <div class="span12">
     <h2><%=t '.title',  :default => t("Revisions") %></h2>
@@ -185,8 +278,15 @@
       <%end%>
     </ul>
   </div>
+          <% if @document.deprecated? %>
+          <div class="row">
+            <div class="offset5 span8">
+            <%= link_to t('Deprecated'), document_path(@document), :class => 'btn btn-large btn-danger' %>
+            </div>
+          </div>
+          <%end%>
 </div>
-
+<%end%>
 
 <div class="row">
   <div class="span12">

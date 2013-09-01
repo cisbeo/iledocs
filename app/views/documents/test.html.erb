@@ -1,0 +1,7 @@
+
+<%= form_tag(:controller => 'documents', :action => 'parse_result', method: "get") do %>
+  <%= text_field_tag :text %>
+  <%= submit_tag('Submit',:class => 'btn btn-large btn-danger') %>
+<% end %>
+
+

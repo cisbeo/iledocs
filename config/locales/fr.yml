@@ -25,6 +25,8 @@ fr:
   file: "fichier"
   procedure: "procedure"
   how_to_document_sources: "Comment documenter les sources"
+  program_using: "Déclaré dans les cartes F"
+  files_used: "Fichiers déclarés"
 
 # French translations for Ruby on Rails
 # by Christian Lescuyer (christian@flyingcoders.com)
@@ -252,6 +254,7 @@ fr:
     Next: "Suivant >"
     Previous: "< Précédent"
     Validate: "Valider"
+    Submit: "Soumettre"
   activemodel:
     errors:
       <<: *errors
