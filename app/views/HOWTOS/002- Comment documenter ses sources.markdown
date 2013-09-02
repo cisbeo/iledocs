@@ -17,10 +17,6 @@ Afin que la documentation soit générer les blocs documentaires doivent respect
 - Un bloc document est toujours initié par /** et terminé par */
 
 - Les tags doivent commencer en colonne 9
-  - scdksdcs
-
-ekekldned
-kldnedkl
 
 
 Conditions CL
