@@ -32,7 +32,7 @@ class CsvParser
     @count = 0
     @count1 = 0
     puts "populating program documents ..."
-    CSV.foreach("./echange/in/ILEDBASE-program-UTF-8.csv") do |row|
+    CSV.foreach(::Rails.root.join('echange','in','ILEDBASE-program-UTF-8.csv')) do |row|
 
         empty = Document.where("doctype= ? and member = ?", 'PROGRAM', row[2].strip.upcase).empty?
         many = Document.where("doctype= ? and member = ?", 'PROGRAM', row[2].strip.upcase).many?
@@ -61,7 +61,7 @@ class CsvParser
     @count1 = 0
     puts "populating procedure documents ..."
 
-      CSV.foreach("./echange/in/ILEDBASE-procedure-UTF-8.csv") do |row|
+      CSV.foreach(::Rails.root.join('echange','in','ILEDBASE-procedure-UTF-8.csv')) do |row|
 
         empty = Document.where("doctype= ? and name = ?", 'PROCEDURE', row[4].strip).empty?
         many = Document.where("doctype= ? and name = ?", 'PROCEDURE', row[4].strip).many?
@@ -89,9 +89,9 @@ class CsvParser
     @count2 = 0
     puts "populate file database documents ..."
     
-    @logFile = File.new("./log/csv_parser.log", "w")
+    @logFile = File.new(::Rails.root.join('log','csv_parser.log'), "w")
 
-    CSV.foreach("./echange/in/ILEDBASE-file-UTF-8.csv") do |row|
+    CSV.foreach(::Rails.root.join('echange','in','ILEDBASE-file-UTF-8.csv')) do |row|
 
       if Document.where("doctype= ? and name = ?", 'FILE', row[4].strip.upcase).empty?
           current_document = Document.new(:library => "", :srcfile => "", 
@@ -123,10 +123,10 @@ class CsvParser
   end
   
   def self.trunk
-    infile = File.open("./echange/in/ILEDBASE-UTF-8.csv") 
-    progfile = File.open("./echange/in/ILEDBASE-program-UTF-8.csv", "w")
-    procfile = File.open("./echange/in/ILEDBASE-procedure-UTF-8.csv", "w")
-    filefile = File.open("./echange/in/ILEDBASE-file-UTF-8.csv", "w")
+    infile = File.open(::Rails.root.join('echange','in','ILEDBASE-UTF-8.csv'))
+    progfile = File.open(::Rails.root.join('echange','in','ILEDBASE-program-UTF-8.csv'), "w")
+    procfile = File.open(::Rails.root.join('echange','in','ILEDBASE-procedure-UTF-8.csv'), "w")
+    filefile = File.open(::Rails.root.join('echange','in','ILEDBASE-file-UTF-8.csv'), "w")
     #TODO : intégrer les DSPOBJD des programmes et des fichier DB
 #    objectprogramfile = File.open("./echange/in/NOLS-object-program-UTF-8.csv", "w")
 #    fileDBfile = File.open("./echange/in/NOLS-object-fileDB-UTF-8.csv", "w")
