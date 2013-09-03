@@ -89,7 +89,7 @@ class CsvParser
     @count2 = 0
     puts "populate file database documents ..."
     
-    @logFile = File.new(::Rails.root.join('log','csv_parser.log'), "w")
+    #@logFile = File.new(::Rails.root.join('log','csv_parser.log'), "w")
 
     CSV.foreach(::Rails.root.join('echange','in','ILEDBASE-file-UTF-8.csv')) do |row|
 
@@ -115,8 +115,8 @@ class CsvParser
       end
     @count = @count + 1
     end
-    @logFile.write(@count2.to_s + 'program not found in csv file from ILEDOCS.Search "source not parsed"')
-    @logFile.close
+    #@logFile.write(@count2.to_s + 'program not found in csv file from ILEDOCS.Search "source not parsed"')
+    #@logFile.close
 
     puts @count.to_s + " file doc lines added"
     puts "objects procedure documentation database is populated"
