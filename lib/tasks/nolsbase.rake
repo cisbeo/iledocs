@@ -1,4 +1,3 @@
-
 namespace :nolsdocs do
 task :docscleardb => :environment do
   puts "Clearing all Documents ..."
@@ -80,7 +79,13 @@ task :populate_fileDB_doc => :environment do
 end
 
 
-task :populatedb => [:populate_object_program,:populate_object_fileDB,:populate_program_doc,:populate_procedure_doc,:populate_fileDB_doc, :dispatchCSVfile, :populateDBdoc]
+task :populatedb => [:populate_object_program,
+                     :populate_object_fileDB,
+                     :populate_program_doc,
+                     :populate_procedure_doc,
+                   #  :populate_fileDB_doc, 
+                     :dispatchCSVfile, 
+                     :populateDBdoc]
 
 	# if File.exists?("./echange/in/NOLS-object-program-UTF-8.csv")
 		# 
