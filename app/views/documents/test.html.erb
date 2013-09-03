@@ -1,6 +1,5 @@
-
 <%= form_tag(:controller => 'documents', :action => 'parse_result', method: "get") do %>
-  <%= text_field_tag :text %>
+  <%= text_area_tag :text,  :rows => 150, :cols => 600 %>
   <%= submit_tag('Submit',:class => 'btn btn-large btn-danger') %>
 <% end %>
 
